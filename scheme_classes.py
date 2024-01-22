@@ -1,6 +1,7 @@
 import builtins
 
 from pair import *
+from util import *
 
 class SchemeError(Exception):
     """Exception indicating an error in a Scheme program."""
@@ -54,7 +55,11 @@ class Frame:
         if len(formals) != len(vals):
             raise SchemeError('Incorrect number of arguments to function call')
         # BEGIN PROBLEM 8
-        "*** YOUR CODE HERE ***"
+        formals = pair_to_list(formals)
+        vals = pair_to_list(vals)
+        new_frame = Frame(self)
+        map_(iota(len(formals)), lambda i: new_frame.define(formals[i], vals[i]))
+        return new_frame
         # END PROBLEM 8
 
 ##############
