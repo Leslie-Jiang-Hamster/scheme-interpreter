@@ -5,10 +5,15 @@
 
 ;; Problem 15
 ;; Returns a list of two-element lists
+(define (iota n)
+  (if (= n 0) '() (append (iota (- n 1)) `(,(- n 1)))))
+
+(define (zip_ seq1 seq2)
+  (if (null? seq1) '() (cons `(,(car seq1) ,(car seq2)) (zip_ (cdr seq1) (cdr seq2)))))
+
 (define (enumerate s)
   ; BEGIN PROBLEM 15
-  'replace-this-line
-  )
+  (zip_ (iota (length s)) s))
   ; END PROBLEM 15
 
 ;; Problem 16
@@ -17,8 +22,10 @@
 ;; the merged lists.
 (define (merge ordered? s1 s2)
   ; BEGIN PROBLEM 16
-  'replace-this-line
-  )
+  (cond ((null? s1) s2)
+    ((null? s2) s1)
+    ((ordered? (car s1) (car s2)) (cons (car s1) (merge ordered? (cdr s1) s2)))
+    (else (cons (car s2) (merge ordered? s1 (cdr s2))))))
   ; END PROBLEM 16
 
 ;; Optional Problem 2
